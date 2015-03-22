@@ -51,6 +51,10 @@ union {
 //TriAxis(<-0.5,-2,-2>)
 //TriAxis(<-2,-0.5,-0.5>)
 
+#declare itpl = function(A,B,R) {
+	A+R*(B-A)
+}
+
 #declare ease = function(X) {
 	(cos(X*pi)+1)/2
 }
@@ -58,14 +62,17 @@ union {
 #declare rotpause = 0.3;
 
 #declare rotclock = (clock < rotpause ? 0 : ease((clock-rotpause) / (1-rotpause)));
+//#declare rotclock = 0.5;
 
 union {
 	ScopeBox(<0,0,0>, 24, 8)
-	rotate <0,rotclock*90,rotclock*90>
+	rotate <-rotclock*90,-rotclock*90,0>
+	scale itpl(1,0.5,rotclock)
 }
 union {
 	ScopeBox(<0,0,0>, 12, 4)
 	rotate <rotclock*90,0,rotclock*90>
+	scale itpl(1,2,rotclock)
 }
 union {
 	Star(<0,0,0>, 2, 6)
