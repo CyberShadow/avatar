@@ -1,3 +1,9 @@
 *.png
 *.gif
 *.bak
+*.svg
+*.gz
+*.bmp
+*.html
+*.exe
+*.exe.*

@@ -62,7 +62,7 @@ union {
 #declare rotpause = 0.3;
 
 #declare rotclock = (clock < rotpause ? 0 : ease((clock-rotpause) / (1-rotpause)));
-//#declare rotclock = 0.5;
+//#declare rotclock = 0.4;
 
 union {
 	ScopeBox(<0,0,0>, 24, 8)
