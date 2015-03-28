@@ -2,9 +2,11 @@ import std.algorithm.iteration;
 import std.algorithm.searching;
 import std.array;
 import std.file;
+import std.math;
 import std.parallelism;
 import std.path;
 import std.process;
+import std.random;
 import std.range;
 import std.stdio;
 
@@ -42,6 +44,30 @@ void main()
 			p.g = 255 - p.g;
 			p.r = p.b = 0;
 		}
+
+		void shiftRow(int y, int s)
+		{
+			s = img.w - s;
+			if (s && s != img.w)
+				img.scanline(y)[] = img.scanline(y)[s..$] ~ img.scanline(y)[0..s];
+		}
+
+		void shiftBand(int shiftHeight, int shiftOffset)
+		{
+			foreach (int n; 0..shiftHeight)
+			{
+				auto y = (n + frame + shiftOffset) % img.h;
+				auto s = (shiftHeight/2) - abs(n - (shiftHeight / 2));
+				if (s)
+					s = uniform(0, s);
+				shiftRow(y, s);
+			}
+		}
+		shiftBand(20, 70);
+		shiftBand(15, 50);
+
+		foreach (y; 0..img.h)
+			shiftRow(y, uniform(0, 2));
 
 		foreach (y; 0..img.h)
 			foreach (ref p; img.scanline(y))
