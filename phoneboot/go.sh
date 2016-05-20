@@ -7,10 +7,15 @@ rm -rf frames/
 mkdir frames
 cp ../avatar-phoneboot?*.png frames/
 
+WIDTH=$(identify -format "%w" frames/avatar-phoneboot000.png)
+convert -background none -resize "$WIDTH"x10000 label.svg label.png
+
 (
 	cd frames
 	#mogrify -format jpg ./*.png
 	#find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "mogrify -format jpg {}"
+	#find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "mogrify -negate {}"
+	find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "composite -gravity South ../label.png {} {}"
 )
 
 zip -0 -r bootanimation.zip desc.txt frames
