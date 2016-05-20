@@ -43,13 +43,14 @@ difference {
 //	bounded_by { box { -1,1 } }
 	scale Size/2
 	translate Center
-}	
+}
 #end
 
 #macro Star(Center, Spoke, Core)
 union {
-	box { -Core/2, Core/2 }
-	TriAxis(<1000,Spoke/2,Spoke/2>)
+	box { -Core/2, Core/2 rotate <rotclock*90,rotclock*90,rotclock*90> }
+	box { -<1000,Spoke/2,Spoke/2>,<1000,Spoke/2,Spoke/2> rotate <0,90,rotclock*90> }
+	box { -<1000,Spoke/2,Spoke/2>,<1000,Spoke/2,Spoke/2> rotate <rotclock*90,0,90> }
 	translate Center
 }
 #end
