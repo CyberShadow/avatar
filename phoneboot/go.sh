@@ -5,7 +5,7 @@ rm -f bootanimation.zip
 rm -rf frames/
 
 mkdir frames
-cp ../avatar?*.png frames/
+cp ../avatar-phoneboot?*.png frames/
 
 (
 	cd frames
