@@ -32,8 +32,13 @@ union {
 #end
 
 #macro ScopeBox(Center, Size, Corner)
-#local Inner1 = 1-(Corner/Size*2);
-#local Inner2 = 1-(Corner/Size  );
+  #ifdef (Intro)
+	#local NewSize=Size + 100*(1-rotclock);
+  #else
+	#local NewSize=Size;
+  #end
+#local Inner1 = 1-(Corner/NewSize*2);
+#local Inner2 = 1-(Corner/NewSize  );
 difference {
 	box { -1,1 }
 	union {
@@ -41,7 +46,7 @@ difference {
 		TriAxis(<-Inner2,-Inner2,-3>)
 	}
 //	bounded_by { box { -1,1 } }
-	scale Size/2
+	scale NewSize/2
 	translate Center
 }
 #end
@@ -63,23 +68,32 @@ union {
 }
 
 #declare ease = function(X) {
-	(cos(X*pi)+1)/2
+	1-(cos(X*pi)+1)/2
 }
 
-#declare rotpause = 0.3;
+#ifdef (PhoneBoot)
+  #declare rotpause = 0;
+#else
+  #declare rotpause = 0.3;
+#end
 
 #declare rotclock = (clock < rotpause ? 0 : ease((clock-rotpause) / (1-rotpause)));
+#debug concat("rotclock=", str(rotclock,5,5), "\n")
 //#declare rotclock = 0.4;
 
 union {
 	ScopeBox(<0,0,0>, 24, 8)
 	rotate <-rotclock*90,-rotclock*90,0>
+  #ifndef (Intro_)
 	scale itpl(1,0.5,rotclock)
+  #end
 }
 union {
 	ScopeBox(<0,0,0>, 12, 4)
 	rotate <rotclock*90,0,rotclock*90>
+  #ifndef (Intro_)
 	scale itpl(1,2,rotclock)
+  #end
 }
 union {
 	Star(<0,0,0>, 2, 6)
@@ -122,4 +136,13 @@ background { color rgb< 1, 1, 1> }
 //light_source { <0, 1e9,0> color rgb <1,1,1> }
 
 //light_source { <1e5,0,0> color rgb <1,1,1> shadowless }
-light_source { <1e5,0,0> color rgb -1 parallel point_at <0,0,0> shadowless }
+light_source {
+  <1e5,0,0>
+  color rgb -1
+  parallel
+  shadowless
+  #ifdef (Intro)
+	rotate <0,0,90*(1-rotclock)>
+  #end
+  point_at <0,0,0>
+}
