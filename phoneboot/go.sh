@@ -1,12 +1,21 @@
 #!/bin/bash
-set -eu
+set -eux
 
-rm -f frames.zip
-zip -j -0 frames.zip ../a09?.png
+rm -f bootanimation.zip
+rm -rf frames/
 
-curl -v --data-binary @frames.zip http://192.168.0.18:43187/encode -o frames.qmg
+mkdir frames
+cp ../a???.png frames/
 
-# rsync frames.qmg root@192.168.0.4:/system/media/bootsamsungloop.qmg
-adb push frames.qmg /sdcard/frames.qmg
-adb shell su -c 'mv /sdcard/frames.qmg /system/media/bootsamsung.qmg'
+(
+	cd frames
+	#mogrify -format jpg ./*.png
+	#find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "mogrify -format jpg {}"
+)
+
+zip -0 -r bootanimation.zip desc.txt frames
+
+adb push bootanimation.zip /sdcard/bootanimation.zip
+adb shell su -c 'mv /sdcard/bootanimation.zip /system/media/bootanimation.zip'
+adb shell su -c 'chmod 644 /system/media/bootanimation.zip'
 adb reboot
