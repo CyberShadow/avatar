@@ -24,7 +24,6 @@ global_settings {
 
 #macro TriAxis(Vec)
 union {
-//	box { -Vec,Vec }
 	box { -Vec,Vec rotate <90,0,0> }
 	box { -Vec,Vec rotate <0,90,0> }
 	box { -Vec,Vec rotate <0,0,90> }
@@ -45,7 +44,6 @@ difference {
 		TriAxis(<-Inner1,-2,-2>)
 		TriAxis(<-Inner2,-Inner2,-3>)
 	}
-//	bounded_by { box { -1,1 } }
 	scale NewSize/2
 	translate Center
 }
@@ -59,9 +57,6 @@ union {
 	translate Center
 }
 #end
-
-//TriAxis(<-0.5,-2,-2>)
-//TriAxis(<-2,-0.5,-0.5>)
 
 #declare itpl = function(A,B,R) {
 	A+R*(B-A)
@@ -108,34 +103,10 @@ union {
   right 32*y
   translate <0,-32*((ImageRatio-1)/2),0>
 }
-// #declare Camera_1 = camera { orthographic
-//                             /*ultra_wide_angle*/ angle 10   // diagonal view
-//                             location  <200.0 , 200.0 ,-200.0>
-//                             right     x*image_width/image_height
-//                             look_at   <0.0 , 0.0 , 0.0>}
-// #declare Camera_2 = camera {/*ultra_wide_angle*/ angle 90  //right side view
-//                             location  <40.0 , 10.0 , 0.0>
-//                             right     x*image_width/image_height
-//                             look_at   <0.0 , 1.0 , 0.0>}
-// #declare Camera_3 = camera {/*ultra_wide_angle*/ angle 90        // top view
-//                             location  <0.0 , 40.0 ,-0.001>
-//                             right     x*image_width/image_height
-//                             look_at   <0.0 , 1.0 , 0.0>}
 camera{Camera_0}
 
-// Set a color of the background (sky)
 background { color rgb< 1, 1, 1> }
 
-
-//light_source { <10,20,-30> color rgb -1 }
-
-
-//light_source { <0,0,-1e9> color rgb <1,1,1> }
-//light_source { <0,0, 1e9> color rgb <1,1,1> }
-//light_source { <0,-1e9,0> color rgb <1,1,1> }
-//light_source { <0, 1e9,0> color rgb <1,1,1> }
-
-//light_source { <1e5,0,0> color rgb <1,1,1> shadowless }
 light_source {
   <1e5,0,0>
   color rgb -1
