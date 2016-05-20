@@ -2,6 +2,7 @@
 set -eux
 
 DO_COMPOSE=1
+DO_PNGOUT=1
 
 rm -f bootanimation.zip
 
@@ -28,6 +29,11 @@ do_dir() {
 			#find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "mogrify -format jpg {}"
 			#find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "mogrify -negate {}"
 			find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "composite -gravity South ../label.png {} {}"
+
+			if [[ $DO_PNGOUT == 1 ]]
+			then
+				find -iname "*.png" -type f -print0 | parallel --progress -0 -j +0 "pngout {} -f0"
+			fi
 		)
 	fi
 
