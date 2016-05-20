@@ -8,7 +8,8 @@ mkdir frames
 cp ../avatar-phoneboot?*.png frames/
 
 WIDTH=$(identify -format "%w" frames/avatar-phoneboot000.png)
-convert -background none -resize "$WIDTH"x10000 label.svg label.png
+# convert -background none -resize "$WIDTH"x10000 label.svg label.png
+inkscape --export-png  label.png -w "$WIDTH" -h $((WIDTH*160/240)) label.svg
 
 (
 	cd frames
