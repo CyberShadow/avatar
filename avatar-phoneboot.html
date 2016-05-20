@@ -1,0 +1,32 @@
+<script>
+ 
+ function fn(i)
+ {
+	 var base = 'avatar-phoneboot';
+	 if (i < 100)
+		 base += '-intro';
+
+	 var n = "000000000" + (i % 100);
+     n = n.substr(-3);
+	 return base+n+'.png';
+ }
+
+ document.write('<style>');
+ var i;
+ for (i=0; i<200; i++){
+	 document.write('#preload-'+i+' { background: url('+fn(i)+') no-repeat -9999px -9999px; }');
+ }
+ document.write('</style>');
+
+ i=0;
+ function cycle()
+ {
+	 var img = document.getElementById('img');
+	 img.src = fn(i);
+	 i++;
+ }
+ setInterval(cycle, 30);
+</script>
+
+
+<img id="img">
