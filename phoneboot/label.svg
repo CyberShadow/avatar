@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <svg width="240" height="160"
      xmlns="http://www.w3.org/2000/svg" version="1.1">
-
 	<rect x="10" y="10" height="140" width="220" fill="white" stroke="black" stroke-width="5" />
-	
+
+	<path d="M0 0 H30 V15 H15 V30 H0" transform="translate(  2.5   2.5)" />
+	<path d="M0 0 H30 V15 H15 V30 H0" transform="translate(237.5   2.5) rotate( 90) " />
+	<path d="M0 0 H30 V15 H15 V30 H0" transform="translate(  2.5 157.5) rotate(270) " />
+	<path d="M0 0 H30 V15 H15 V30 H0" transform="translate(237.5 157.5) rotate(180) " />
+
 	<g transform="translate(0 20)" style="font-family:Liberation Mono; font-weight: bold; font-size: 13px">
 		<text text-anchor="middle" x="120" y="20"> Property of </text>
 		<text text-anchor="middle" x="120" y="40"> Vladimir Panteleev </text>
