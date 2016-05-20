@@ -1,5 +1,11 @@
 #version 3.7;
 
+#ifdef (PhoneBoot)
+  #declare ImageRatio = 2560/1440;
+#else
+  #declare ImageRatio = 1;
+#end
+
 global_settings {
 	assumed_gamma 1.0
 }
@@ -80,23 +86,26 @@ union {
 	rotate <rotclock*90,0,0>
 }
 
-#declare Camera_0 = camera { orthographic location <100, 0, 0>
-                            look_at   <0.0 , 0.0 , 0.0>
-							up 32*x right 32*y
-                            }
-#declare Camera_1 = camera { orthographic 
-                            /*ultra_wide_angle*/ angle 10   // diagonal view
-                            location  <200.0 , 200.0 ,-200.0>
-                            right     x*image_width/image_height
-                            look_at   <0.0 , 0.0 , 0.0>}
-#declare Camera_2 = camera {/*ultra_wide_angle*/ angle 90  //right side view
-                            location  <40.0 , 10.0 , 0.0>
-                            right     x*image_width/image_height
-                            look_at   <0.0 , 1.0 , 0.0>}
-#declare Camera_3 = camera {/*ultra_wide_angle*/ angle 90        // top view
-                            location  <0.0 , 40.0 ,-0.001>
-                            right     x*image_width/image_height
-                            look_at   <0.0 , 1.0 , 0.0>}
+#declare Camera_0 = camera {
+  orthographic location <100, 0, 0>
+  look_at   <0.0 , 0.0 , 0.0>
+  up 32*ImageRatio*x
+  right 32*y
+  translate <0,-32*((ImageRatio-1)/2),0>
+}
+// #declare Camera_1 = camera { orthographic
+//                             /*ultra_wide_angle*/ angle 10   // diagonal view
+//                             location  <200.0 , 200.0 ,-200.0>
+//                             right     x*image_width/image_height
+//                             look_at   <0.0 , 0.0 , 0.0>}
+// #declare Camera_2 = camera {/*ultra_wide_angle*/ angle 90  //right side view
+//                             location  <40.0 , 10.0 , 0.0>
+//                             right     x*image_width/image_height
+//                             look_at   <0.0 , 1.0 , 0.0>}
+// #declare Camera_3 = camera {/*ultra_wide_angle*/ angle 90        // top view
+//                             location  <0.0 , 40.0 ,-0.001>
+//                             right     x*image_width/image_height
+//                             look_at   <0.0 , 1.0 , 0.0>}
 camera{Camera_0}
 
 // Set a color of the background (sky)
