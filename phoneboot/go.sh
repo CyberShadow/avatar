@@ -5,7 +5,7 @@ rm -f bootanimation.zip
 rm -rf frames/
 
 mkdir frames
-cp ../a???.png frames/
+cp ../avatar?*.png frames/
 
 (
 	cd frames
